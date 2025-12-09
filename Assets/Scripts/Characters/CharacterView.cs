@@ -16,6 +16,8 @@ public class CharacterView : MonoBehaviour
 
     [SerializeField] private Character _character;
 
+    [SerializeField] private PointFlag _targetPointFlagPrefab;
+
     private void Awake()
     {
         _indexBaseLayer = _animator.GetLayerIndex(BaseLayer);
@@ -28,6 +30,8 @@ public class CharacterView : MonoBehaviour
             StartRunning();
         else
             StopRunning();
+
+        ShowDestinationMarker();
     }
 
     public void TakeDamage()
@@ -63,4 +67,15 @@ public class CharacterView : MonoBehaviour
     {
         _animator.SetBool(IsRunningKey, false);
     }
+
+    private void ShowDestinationMarker()
+    {
+        if(_character.CurrentVelocity.magnitude > 0.05f)
+        {
+            PointFlag targetPointFlag = Instantiate(_targetPointFlagPrefab, _character.CurrentTarget, Quaternion.identity);
+            targetPointFlag.Initialize(_character.CurrentTarget);
+        }
+       
+    }
 }
+

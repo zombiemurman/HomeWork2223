@@ -1,5 +1,9 @@
-public interface IDamageable : ITransformPosition
+using UnityEngine;
+
+public interface IDamageable
 {
+    Vector3 Position { get; }
+
     void TakeDamage(float damage);
 }
 

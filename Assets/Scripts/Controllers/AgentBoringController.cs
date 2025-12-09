@@ -6,41 +6,33 @@ public class AgentBoringController : Controller
 {
     private Character _character;
 
-    private float _timeWithoutAction;
-
-    private float _currentTimeWithoutAction;
-
     private float _movementRange;
 
     private NavMeshPath _pathToTarget = new NavMeshPath();
 
-    public AgentBoringController(Character character, float timeWithoutAction, float MovementRange)
+    private Vector3 _currentTargget;
+
+    public AgentBoringController(Character character, float MovementRange)
     {
         _character = character;
-        _timeWithoutAction = timeWithoutAction;
         _movementRange = MovementRange;
-
-        _currentTimeWithoutAction = 0;
     }
 
     protected override void UpdateLogic(float deltaTime)
     {
-        if(_character.CurrentVelocity == Vector3.zero)
-            _currentTimeWithoutAction += Time.deltaTime;
-        else
-            _currentTimeWithoutAction = 0;
+        if (_character.CurrentVelocity.magnitude <= 0.05f)
+            _currentTargget = GetTargetPoint();
 
-        if (_currentTimeWithoutAction >= _timeWithoutAction)
-        {
-            float positionX = Random.Range(_character.Position.x - _movementRange, _character.Position.x + _movementRange);
-            float positionZ = Random.Range(_character.Position.z- _movementRange, _character.Position.z + _movementRange);
+        if (_character.TryGetPath(_currentTargget, _pathToTarget))
+            _character.SetDestination(_currentTargget);
 
-            Vector3 direction = new Vector3(positionX, 0, positionZ);
+    }
 
-            if(_character.TryGetPath(direction, _pathToTarget))
-            {
-                _character.SetDestination(direction);
-            }
-        }
+    private Vector3 GetTargetPoint()
+    {
+        float positionX = Random.Range(_character.Position.x - _movementRange, _character.Position.x + _movementRange);
+        float positionZ = Random.Range(_character.Position.z - _movementRange, _character.Position.z + _movementRange);
+
+        return new Vector3(positionX, 0, positionZ);
     }
 }

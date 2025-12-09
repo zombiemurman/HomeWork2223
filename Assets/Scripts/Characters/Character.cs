@@ -26,6 +26,8 @@ public class Character : MonoBehaviour, IHealth, IDamageable, IDirectionalAgentM
 
     public bool IsDie => _healthComponent.IsDie;
 
+    public Vector3 CurrentTarget {  get; private set; }
+
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -42,7 +44,11 @@ public class Character : MonoBehaviour, IHealth, IDamageable, IDirectionalAgentM
         _rotator.Upadate(Time.deltaTime);
     }
 
-    public void SetDestination(Vector3 position) => _mover.SetDestination(position);
+    public void SetDestination(Vector3 position)
+    {
+        _mover.SetDestination(position);
+        CurrentTarget = position;
+    }
 
     public void SetRotationDirection(Vector3 inputDirection) => _rotator.SetRotationDirection(inputDirection);
 

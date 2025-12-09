@@ -3104,7 +3104,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.04
   far clip plane: 1000
   field of view: 57.21
   orthographic: 1
@@ -6087,6 +6087,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 626869211}
   _character: {fileID: 760950100}
+  _targetPointFlagPrefab: {fileID: -193600963115983419, guid: 6f1f6318e04f4c044bd18a75ffd731e3,
+    type: 3}
 --- !u!1 &628226699 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 869e9b9a731151d42beaee15476efc77,
@@ -10824,7 +10826,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 57.21
     OrthographicSize: 8.95
-    NearClipPlane: 0.3
+    NearClipPlane: 0.04
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
@@ -15711,55 +15713,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4, y: 0.15000066, z: 4}
   m_Center: {x: 0, y: -0.025000004, z: 0}
---- !u!1 &1432987027
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1432987028}
-  - component: {fileID: 1432987029}
-  m_Layer: 0
-  m_Name: ViewController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1432987028
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1432987027}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.093325, y: 16.483929, z: -1.808799}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1432987029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1432987027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85a9a9bf595bb944bbc1f81d157f9f34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mousePointPrefab: {fileID: 3016724520607480613, guid: 6f1f6318e04f4c044bd18a75ffd731e3,
-    type: 3}
-  _layerMaskFloor:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!1 &1461652222
 GameObject:
   m_ObjectHideFlags: 3
@@ -24044,7 +23997,6 @@ SceneRoots:
   - {fileID: 1465846095}
   - {fileID: 760950101}
   - {fileID: 1492717443}
-  - {fileID: 1432987028}
   - {fileID: 566773424}
   - {fileID: 1565268898}
   - {fileID: 154700983}

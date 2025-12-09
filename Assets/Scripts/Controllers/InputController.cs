@@ -12,10 +12,17 @@ public class InputController : MonoBehaviour
 
     private void Awake()
     {
+        //_characterController = new CompositController(
+        //    new AgentCharacterController(_character, _layerMaskFloor),
+        //    new RotationController(_character, _character),
+        //    new AgentBoringController(_character, 2, 4));
+
         _characterController = new CompositController(
-            new AgentCharacterController(_character, _layerMaskFloor),
-            new RotationController(_character, _character),
-            new AgentBoringController(_character, 2, 4));
+            new IdleActiveController(
+                    new AgentBoringController(_character, 4),
+                    new AgentCharacterController(_character, _layerMaskFloor),
+                    3),
+            new RotationController(_character, _character));
 
         _characterController.Enable();
 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3248763698772171666}
   - component: {fileID: 6129475355065864456}
   - component: {fileID: 3191713500833960916}
-  - component: {fileID: 1543420124588534233}
+  - component: {fileID: -193600963115983419}
   m_Layer: 0
   m_Name: flag_teamBlue
   m_TagString: Untagged
@@ -86,7 +86,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1543420124588534233
+--- !u!114 &-193600963115983419
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,6 +95,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3016724520607480613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e0d468b78bf57a408831486c2c91eb9, type: 3}
+  m_Script: {fileID: 11500000, guid: 6dfa04461bdee1e4dbae31685ef94bff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

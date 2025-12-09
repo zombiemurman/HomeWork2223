@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface IDirectionalAgentMovable : ITransformPosition
+public interface IDirectionalAgentMovable
 {
     Vector3 CurrentVelocity { get; }
 
