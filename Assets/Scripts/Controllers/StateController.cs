@@ -6,8 +6,6 @@ public class StateController : Controller
 
     private Controller _activeController;
 
-    private Controller _currentController;
-
     private float _timeWithoutAction;
 
     private float _currentTime;
