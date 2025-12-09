@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class IdleActiveController : Controller
+public class StateController : Controller
 {
     private Controller _idleController;
 
@@ -12,7 +12,7 @@ public class IdleActiveController : Controller
 
     private float _currentTime;
 
-    public IdleActiveController(Controller idleController, Controller activeController, float timeWithoutAction)
+    public StateController(Controller idleController, Controller activeController, float timeWithoutAction)
     {
         _idleController = idleController;
         _activeController = activeController;

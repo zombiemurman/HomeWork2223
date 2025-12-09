@@ -18,7 +18,7 @@ public class InputController : MonoBehaviour
         //    new AgentBoringController(_character, 2, 4));
 
         _characterController = new CompositController(
-            new IdleActiveController(
+            new StateController(
                     new AgentBoringController(_character, 4),
                     new AgentCharacterController(_character, _layerMaskFloor),
                     3),
