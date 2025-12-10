@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AgentCharacterController : Controller
 {
@@ -16,6 +17,19 @@ public class AgentCharacterController : Controller
 
     protected override void UpdateLogic(float deltaTime)
     {
+        if(_character.IsOnNavMeshLink(out OffMeshLinkData offMeshLinkData))
+        {
+            if(_character.InJumpProcess == false)
+            {
+                _character.SetRotationDirection(offMeshLinkData.endPos - offMeshLinkData.startPos);
+
+                _character.Jump(offMeshLinkData);
+            }
+
+            return;
+        }
+
+
         if(Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

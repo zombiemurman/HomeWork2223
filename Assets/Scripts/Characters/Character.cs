@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,11 +8,13 @@ public class Character : MonoBehaviour, IHealth, IDamageable, IDirectionalAgentM
 
     private AgentMover _mover;
     private DirectionalRotater _rotator;
+    private AgentJumper _jumper;
 
     private HealthComponent _healthComponent;
 
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotationSpeed;
+    [SerializeField] private float _jumpSpeed;
     [SerializeField] private float _health;
 
     [SerializeField] private CharacterView _characterView;
@@ -28,6 +29,8 @@ public class Character : MonoBehaviour, IHealth, IDamageable, IDirectionalAgentM
 
     public Vector3 CurrentTarget {  get; private set; }
 
+    public bool InJumpProcess => _jumper.InProcess;
+
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -37,6 +40,8 @@ public class Character : MonoBehaviour, IHealth, IDamageable, IDirectionalAgentM
 
         _mover = new AgentMover(_agent, _moveSpeed);
         _rotator = new DirectionalRotater(transform, _rotationSpeed);
+
+        _jumper = new AgentJumper(_jumpSpeed, _agent, this);
     }
 
     private void Update()
@@ -76,4 +81,18 @@ public class Character : MonoBehaviour, IHealth, IDamageable, IDirectionalAgentM
 
     public bool TryGetPath(Vector3 targetPosition, NavMeshPath pathToTarget)
         => NavMeshUtils.TryGetPah(_agent, targetPosition, pathToTarget);
+
+    public bool IsOnNavMeshLink(out OffMeshLinkData offMeshLinkData)
+    {
+        if(_agent.isOnOffMeshLink)
+        {
+            offMeshLinkData = _agent.currentOffMeshLinkData;
+            return true;    
+        }
+
+        offMeshLinkData = default(OffMeshLinkData);
+        return false;
+    }
+
+    public void Jump(OffMeshLinkData offMeshLinkData) => _jumper.Jump(offMeshLinkData);
 }
