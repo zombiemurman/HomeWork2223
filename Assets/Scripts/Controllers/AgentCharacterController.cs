@@ -9,6 +9,8 @@ public class AgentCharacterController : Controller
 
     private LayerMask _layerMask;
 
+    private NavMeshPath _pathToTarget = new NavMeshPath();
+
     public AgentCharacterController(Character character, LayerMask layerMask)
     {
         _character = character;
@@ -36,7 +38,8 @@ public class AgentCharacterController : Controller
 
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _layerMask.value))
             {
-                _character.SetDestination(hit.point);
+                if (_character.TryGetPath(hit.point, _pathToTarget))
+                    _character.SetDestination(hit.point);
             }
         }
     }

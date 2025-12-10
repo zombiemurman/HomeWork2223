@@ -1537,7 +1537,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 8b62a9edf5b49524c9f5d29297109f9c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.95721
+      value: -6.85
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8b62a9edf5b49524c9f5d29297109f9c,
         type: 3}
@@ -8147,6 +8147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 5
   _rotationSpeed: 700
+  _jumpSpeed: 3
   _health: 100
   _characterView: {fileID: 626869212}
 --- !u!4 &760950101
