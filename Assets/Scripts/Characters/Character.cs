@@ -17,6 +17,8 @@ public class Character : MonoBehaviour, IHealth, IDamageable, IDirectionalAgentM
     [SerializeField] private float _jumpSpeed;
     [SerializeField] private float _health;
 
+    [SerializeField] private AnimationCurve _jumpCurve;
+
     [SerializeField] private CharacterView _characterView;
 
     public Vector3 CurrentVelocity => _mover.CurrentVelocity;
@@ -41,7 +43,7 @@ public class Character : MonoBehaviour, IHealth, IDamageable, IDirectionalAgentM
         _mover = new AgentMover(_agent, _moveSpeed);
         _rotator = new DirectionalRotater(transform, _rotationSpeed);
 
-        _jumper = new AgentJumper(_jumpSpeed, _agent, this);
+        _jumper = new AgentJumper(_jumpSpeed, _agent, this, _jumpCurve);
     }
 
     private void Update()

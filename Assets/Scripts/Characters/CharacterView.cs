@@ -3,6 +3,7 @@ using UnityEngine;
 public class CharacterView : MonoBehaviour
 {
     private readonly int IsRunningKey = Animator.StringToHash("isRunning");
+    private readonly int InJumpProcessKey = Animator.StringToHash("InJumpProcess");
     private readonly int DamageKey = Animator.StringToHash("TakeDamage");
     private readonly int DieKey = Animator.StringToHash("Die");
 
@@ -26,6 +27,8 @@ public class CharacterView : MonoBehaviour
 
     private void Update()
     {
+        _animator.SetBool(InJumpProcessKey, _character.InJumpProcess);
+
         if (_character.CurrentVelocity.magnitude > 0.05f)
             StartRunning();
         else

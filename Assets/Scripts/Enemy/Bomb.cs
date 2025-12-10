@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour
@@ -28,11 +29,11 @@ public class Bomb : MonoBehaviour
     public void Update()
     {
         if (CheckDetection())
-            Explosion();
+            StartCoroutine(Explosion());
 
     }
 
-    private void Explosion()
+    private IEnumerator Explosion()
     {
         _currentTimeToExplosion -= Time.deltaTime;
 
@@ -41,7 +42,9 @@ public class Bomb : MonoBehaviour
             _bombController.ExplosionEffect(transform.position);
             _target.TakeDamage(_damage);
             Destroy(gameObject);
-        }      
+        }
+        
+        yield return null;
     }
 
     private bool CheckDetection()
