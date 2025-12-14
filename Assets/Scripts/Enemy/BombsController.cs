@@ -14,6 +14,8 @@ public class BombsController : MonoBehaviour
     [SerializeField] private float _bombRadiusDetected;
     [SerializeField] private float _bombTimeToExplosion;
 
+    [SerializeField] private MusicPlayer _musicPlayer;
+
     private void Awake()
     {
         foreach (Bomb bomb in _bombs)
@@ -23,5 +25,6 @@ public class BombsController : MonoBehaviour
     public void ExplosionEffect(Vector3 position)
     {
         Instantiate(_explosionEffectPrefab, position, Quaternion.identity);
+        _musicPlayer.BombSound();
     }
 }

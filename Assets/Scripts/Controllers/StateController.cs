@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class StateController : Controller
 {
@@ -6,18 +7,14 @@ public class StateController : Controller
 
     private Controller _activeController;
 
-    private float _timeWithoutAction;
+    private Character _character;
 
-    private float _currentTime;
-
-    public StateController(Controller idleController, Controller activeController, float timeWithoutAction)
+    public StateController(Controller idleController, Controller activeController, Character character)
     {
         _idleController = idleController;
         _activeController = activeController;
-        
-        _timeWithoutAction = timeWithoutAction;
-        
-        _currentTime = 0;
+
+        _character = character;
     }
 
     public override void Enable()
@@ -32,21 +29,18 @@ public class StateController : Controller
 
     protected override void UpdateLogic(float deltaTime)
     {
-        _currentTime += Time.deltaTime;
-
-        if (_currentTime >= _timeWithoutAction)
+        if (_character.IsIdle)
         {
             _idleController.Enable();
             _activeController.Disable();
 
             _idleController.Update(Time.deltaTime);
+
         }
-          
-        if (Input.GetMouseButtonDown(0))
+        else
         {
             _idleController.Disable();
             _activeController.Enable();
-            _currentTime = 0;
 
             _activeController.Update(Time.deltaTime);
         }

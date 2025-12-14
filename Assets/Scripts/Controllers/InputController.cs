@@ -20,9 +20,12 @@ public class InputController : MonoBehaviour
         _characterController = new CompositController(
             new StateController(
                     new AgentBoringController(_character, 4),
-                    new AgentCharacterController(_character, _layerMaskFloor),
-                    3),
-            new RotationController(_character, _character));
+                    new AgentCharacterController(_character, _layerMaskFloor)
+                    , _character),
+            new RotationController(_character, _character)
+            );
+
+        //_characterController = new AgentCharacterController(_character, _layerMaskFloor); new RotationController(_character, _character)
 
         _characterController.Enable();
 

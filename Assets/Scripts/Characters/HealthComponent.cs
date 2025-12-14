@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class HealthComponent : IHealth
 {
+    private float _maxHealth;
+
     public HealthComponent(float health)
     {
         Health = health;
         IsDie = false;
+        
+        _maxHealth = health;
     }
 
     public float Health { get; private set; }
@@ -27,6 +31,17 @@ public class HealthComponent : IHealth
             IsDie = true;
         }
             
+    }
+
+    public void AddHealth(int amount)
+    {
+        if (amount <= 0)
+            return;
+
+        Health += amount;
+
+        if (Health > _maxHealth)
+            Health = _maxHealth;
     }
 
 }

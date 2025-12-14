@@ -43,18 +43,26 @@ public class CharacterView : MonoBehaviour
 
         _animator.SetTrigger(DamageKey);
 
-        if (_character.Health <= 90)
+    } 
+
+    public void SwitchAnimation()
+    {
+        if (_character.Health <= 80)
         {
             _animator.SetLayerWeight(_indexInguredLayer, 1);
             _animator.SetLayerWeight(_indexBaseLayer, 0);
+        }
+        else
+        {
+            _animator.SetLayerWeight(_indexInguredLayer, 0);
+            _animator.SetLayerWeight(_indexBaseLayer, 1);
         }
 
         if (_character.Health <= 0)
         {
             _animator.SetTrigger(DieKey);
         }
-            
-    } 
+    }
 
     private void ResumeMove()
     {

@@ -20,6 +20,19 @@ public class AgentBoringController : Controller
 
     protected override void UpdateLogic(float deltaTime)
     {
+
+        if (_character.IsOnNavMeshLink(out OffMeshLinkData offMeshLinkData))
+        {
+            if (_character.InJumpProcess == false)
+            {
+                _character.SetRotationDirection(offMeshLinkData.endPos - offMeshLinkData.startPos);
+
+                _character.Jump(offMeshLinkData);
+            }
+
+            return;
+        }
+
         if (_character.CurrentVelocity.magnitude <= 0.05f)
             _currentTargget = GetTargetPoint();
 

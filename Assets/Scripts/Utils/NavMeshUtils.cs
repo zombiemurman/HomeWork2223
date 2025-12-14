@@ -32,9 +32,6 @@ public class NavMeshUtils
         if (agent.CalculatePath(targetPosition, pathToTarget) && pathToTarget.status != NavMeshPathStatus.PathInvalid)
             return true;
 
-        Debug.Log(pathToTarget.status);
-        Debug.Log(targetPosition);
-
         return false;
     }
 }

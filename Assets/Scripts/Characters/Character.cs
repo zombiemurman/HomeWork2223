@@ -1,6 +1,8 @@
 using System.Threading;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class Character : MonoBehaviour, IHealth, IDamageable, IDirectionalAgentMovable, IDirectionalAgentRotatable
 {
@@ -9,6 +11,8 @@ public class Character : MonoBehaviour, IHealth, IDamageable, IDirectionalAgentM
     private AgentMover _mover;
     private DirectionalRotater _rotator;
     private AgentJumper _jumper;
+
+    private IdleDetector _idleDetector;
 
     private HealthComponent _healthComponent;
 
@@ -33,6 +37,8 @@ public class Character : MonoBehaviour, IHealth, IDamageable, IDirectionalAgentM
 
     public bool InJumpProcess => _jumper.InProcess;
 
+    public bool IsIdle => _idleDetector.IsIdle;
+
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -44,11 +50,15 @@ public class Character : MonoBehaviour, IHealth, IDamageable, IDirectionalAgentM
         _rotator = new DirectionalRotater(transform, _rotationSpeed);
 
         _jumper = new AgentJumper(_jumpSpeed, _agent, this, _jumpCurve);
+
+        _idleDetector = new IdleDetector(this, 3);
     }
 
     private void Update()
     {
         _rotator.Upadate(Time.deltaTime);
+        
+        _idleDetector.Update();
     }
 
     public void SetDestination(Vector3 position)
@@ -76,9 +86,19 @@ public class Character : MonoBehaviour, IHealth, IDamageable, IDirectionalAgentM
         Debug.Log(_healthComponent.Health);
 
         _characterView.TakeDamage();
+        _characterView.SwitchAnimation();
 
        if(IsDie)
             StopMove();
+    }
+
+    public void AddHealth(int amount)
+    {
+        _healthComponent.AddHealth(amount);
+
+        _characterView.SwitchAnimation();
+
+        Debug.Log(_healthComponent.Health);
     }
 
     public bool TryGetPath(Vector3 targetPosition, NavMeshPath pathToTarget)

@@ -11,9 +11,9 @@ public class Bomb : MonoBehaviour
 
     private float _timeToExplosion;
 
-    private float _currentTimeToExplosion;
-
     private float _damage;
+
+    private Coroutine _bombTimerProcess;
 
     public void Initialize(BombsController bombController, IDamageable target, float damage, float radiusDetected, float timeToExplosion)
     {
@@ -22,28 +22,35 @@ public class Bomb : MonoBehaviour
         _damage = damage;
         _radiusDetected = radiusDetected;
         _timeToExplosion = timeToExplosion;
-
-        _currentTimeToExplosion = _timeToExplosion;
     }
 
     public void Update()
     {
-        if (CheckDetection())
-            StartCoroutine(Explosion());
+        if (CheckDetection() && _bombTimerProcess == null)
+            _bombTimerProcess = StartCoroutine(Explosion());
 
+        if(CheckDetection() == false && _bombTimerProcess != null)
+        {
+            StopCoroutine(_bombTimerProcess);
+            _bombTimerProcess = null;
+        }
+            
     }
 
     private IEnumerator Explosion()
     {
-        _currentTimeToExplosion -= Time.deltaTime;
+        float currentTimeToExplosion = 0;
 
-        if (_currentTimeToExplosion <= 0)
+        while (currentTimeToExplosion <= _timeToExplosion)
         {
-            _bombController.ExplosionEffect(transform.position);
-            _target.TakeDamage(_damage);
-            Destroy(gameObject);
+            currentTimeToExplosion += Time.deltaTime;
+            yield return null;
         }
-        
+
+        _bombController.ExplosionEffect(transform.position);
+        _target.TakeDamage(_damage);
+        Destroy(gameObject);
+    
         yield return null;
     }
 
@@ -55,7 +62,6 @@ public class Bomb : MonoBehaviour
         if(Vector3.Distance(_target.Position, transform.position) <= _radiusDetected)
             return true;
 
-        _currentTimeToExplosion = _timeToExplosion;
         return false;
     }
 
